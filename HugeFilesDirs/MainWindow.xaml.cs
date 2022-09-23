@@ -47,6 +47,8 @@ namespace HugeFilesDirs
             {
                 var dir = new DirectoryInfo(data.Path);
 
+                item.Items.Clear();
+
                 try
                 {
                     foreach (var di in dir.GetDirectories())
@@ -95,6 +97,10 @@ namespace HugeFilesDirs
                             return GetAllFiles(d);
                         }
                         catch (UnauthorizedAccessException e)
+                        {
+                            return Enumerable.Empty<String>();
+                        }
+                        catch (DirectoryNotFoundException ex)
                         {
                             return Enumerable.Empty<String>();
                         }
